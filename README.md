@@ -53,7 +53,7 @@ WantedBy=multi-user.target
 ```
 ```
 systemctl daemon-reload
-systemctl enable file-count-exporter.service && systemctl start file-count-exporter.service && systemctl status file-count-exporter.service
+systemctl enable prometheus-file-metrics-monitor.service && systemctl start prometheus-file-metrics-monitor.service && systemctl status prometheus-file-metrics-monitor.service
 ```
 The script will start an HTTP server on port ```9200``` that Prometheus can scrape.
 
