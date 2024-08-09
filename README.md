@@ -6,7 +6,7 @@ This repository contains a Python script that monitors specific directories and 
 
 - **File Count Monitoring**: Tracks the number of `.json` files in specified directories.
 - **Last Modification Date**: Monitors and exports the last modification date of `.json` files in YYYYMMDD format.
-- **SFTP Directory Monitoring**: Lists and tracks the files present in an SFTP directory.
+- **SFTP Directory Monitoring**: Lists and tracks the file's presence in an SFTP directory.
 - **Log File Tail Monitoring**: Exports the last N lines from specified log files.
 
 ## Prerequisites
@@ -28,16 +28,36 @@ git clone https://github.com/yourusername/Prometheus-File-Metrics-Monitor.git
 cd Prometheus-File-Metrics-Monitor
 Edit the script if necessary:
 
-Modify the directories, sftp_directory, and files_to_tail variables in the script to fit your monitoring needs.
-Run the script:
+You can modify the script's directories, sftp_directory, and files_to_tail variables to fit your monitoring needs. Then you need to create a service to keep running the exporter.
 
 ```
-python monitor.py
+cd /usr/lib/systemd/system/
+vim prometheus-file-metrics-monitor.service
+```
+```
+[Unit]
+Description= Prometheus File Metrics Exporter
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory= /data/users/appuser/Prometheus-File-Metrics-Monitor
+ExecStart=/bin/sh -c 'cd /data/users/appuser/Prometheus-File-Metrics-Monitor/ && python3 file-metrics-exporter.py'
+ExecStop=/bin/kill -TERM ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+```
+systemctl daemon-reload
+systemctl enable file-count-exporter.service && systemctl start file-count-exporter.service && systemctl status file-count-exporter.service
 ```
 The script will start an HTTP server on port ```9200``` that Prometheus can scrape.
 
 ## Configure Prometheus:
-Add the following job to your Prometheus configuration:
+Add the following job to your Prometheus configuration and restart the Prometheus service:
 
 ```
 vim /etc/prometheus/prometheus.yml
@@ -46,7 +66,7 @@ vim /etc/prometheus/prometheus.yml
 ```
 # my global config
 global:
-  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. The default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 
@@ -78,7 +98,9 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9200"]
 ```
-
+```
+systemctl restart prometheus
+```
 ## Usage
 
 Directory Monitoring:
