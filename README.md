@@ -85,5 +85,7 @@ Log File Tail Monitoring:
 The script tails the last few lines of log files defined in the files_to_tail dictionary and exports them as metrics.
 
 ## Contributing
-Feel free to open issues or submit pull requests if you have any improvements or bug fixes.
+Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
+## Author
+Created by Fatemeh Haji Agha Bozorgi.
