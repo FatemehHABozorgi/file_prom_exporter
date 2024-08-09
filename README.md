@@ -23,7 +23,7 @@ pip install prometheus_client
 Clone the repository:
 
 ```
-git clone [https://github.com/yourusername/Prometheus-File-Metrics-Monitor.git](https://github.com/FatemehHABozorgi/Prometheus-File-Metrics-Monitor.git)
+git clone https://github.com/yourusername/Prometheus-File-Metrics-Monitor.git
 ```
 cd Prometheus-File-Metrics-Monitor
 Edit the script if necessary:
