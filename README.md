@@ -29,7 +29,7 @@ cd Prometheus-File-Metrics-Monitor
 
 Edit the script if necessary:
 
-You can modify the script's directories, sftp_directory, and files_to_tail variables to fit your monitoring needs. Then you need to create a service to keep running the exporter.
+To fit your monitoring needs, you can modify the script's directories, sftp_directory, and files_to_tail variables. Then you need to create a service to keep running the exporter.
 
 ```
 cd /usr/lib/systemd/system/
