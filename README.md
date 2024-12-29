@@ -24,9 +24,8 @@ Clone the repository:
 
 ```
 git clone https://github.com/FatemehHABozorgi/Prometheus-File-Metrics-Monitor.git
-```
 cd Prometheus-File-Metrics-Monitor
-
+```
 Edit the script if necessary:
 
 To fit your monitoring needs, you can modify the script's directories, sftp_directory, and files_to_tail variables. Then you need to create a service to keep running the exporter.
